@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="d8905ce2-5b54-46ec-b269-0352d8dce910" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<db:config name="Database_Config" doc:name="Database Config" doc:id="1c103cf4-cf6f-43af-9130-54b2bc1ed351" >
+		<db:my-sql-connection host="db4free.net" port="3306" user="aditya2506" password="Aditya2506" database="employee_test" />
+	</db:config>
+	<flow name="new_mule_ws_jenkFlow" doc:id="ce85049e-92e3-4a22-8bc4-4375c2fa1ffd" >
+		<http:listener doc:name="Listener" doc:id="398c85ec-090c-491f-9ab8-986c89b25fff" config-ref="HTTP_Listener_config" path="/jenk"/>
+		<db:select doc:id="5872b880-dc0c-49a9-b92e-499e39633170" config-ref="Database_Config">
+			<db:sql ><![CDATA[SELECT * FROM `EMP-WS_1`]]></db:sql>
+		</db:select>
+		<ee:transform doc:name="Transform Message" doc:id="4bd2aaa3-8b22-4df4-8522-b4a711af97cc" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
