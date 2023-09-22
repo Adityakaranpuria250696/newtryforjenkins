@@ -36,7 +36,7 @@
 						<muleVersion>4.4.0</muleVersion>
 						<username>API-3316</username>
 						<password>Aditya250696</password>
-						<applicationName>new_Jenkinsjenk123</applicationName>
+						<applicationName>new-jenkins123</applicationName>
 						<environment>Sandbox</environment>
 						<workers>1</workers>
 						<workerType>MICRO</workerType>
